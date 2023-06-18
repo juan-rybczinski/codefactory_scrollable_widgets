@@ -9,7 +9,19 @@ class SingleChildScrollViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
       title: 'SingleChildScrollView',
-      body: renderAlwaysScroll(),
+      body: renderClip(),
+    );
+  }
+
+  SingleChildScrollView renderClip() {
+    return SingleChildScrollView(
+      clipBehavior: Clip.none,
+      physics: AlwaysScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          renderContainer(color: Colors.black),
+        ],
+      ),
     );
   }
 
