@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_widgets/const/colors.dart';
 import 'package:scrollable_widgets/const/numbers.dart';
+import 'package:scrollable_widgets/generated/assets.dart';
 
 class CustomScrollViewScreen extends StatelessWidget {
   const CustomScrollViewScreen({super.key});
@@ -10,12 +11,34 @@ class CustomScrollViewScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            title: Text('CustomScrollViewScreen'),
-          ),
+          renderSliverAppbar(),
           renderBuilderSliverGrid(),
+          renderBuilderSliverList(),
         ],
       ),
+    );
+  }
+
+  SliverAppBar renderSliverAppbar() {
+    return SliverAppBar(
+      // 스크롤 했을 때 리스트의 중간에도 AppBar가 내려오게 할 수 있음
+      floating: true,
+      // 완전 고정
+      pinned: false,
+      // 자석 효과, floating=true에만 사용 가능
+      snap: false,
+      // 맨 위에서 한계 이상으로 스크롤 했을 때 남는 공간을 차지
+      stretch: false,
+      expandedHeight: 200,
+      collapsedHeight: 150,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Image.asset(
+          Assets.imageProfile,
+          fit: BoxFit.cover,
+        ),
+        title: Text('FlexibleSpace'),
+      ),
+      title: Text('CustomScrollViewScreen'),
     );
   }
 
