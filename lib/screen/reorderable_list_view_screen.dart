@@ -17,7 +17,25 @@ class _ReorderableListViewScreenState extends State<ReorderableListViewScreen> {
   Widget build(BuildContext context) {
     return MainLayout(
       title: 'ReorderableListViewScreen',
-      body: renderDefault(),
+      body: renderBuilder(),
+    );
+  }
+
+  ReorderableListView renderBuilder() {
+    return ReorderableListView.builder(
+      itemBuilder: (context, index) => renderContainer(
+          color: rainbowColors[numbers[index] % numbers.length],
+          index: numbers[index]),
+      itemCount: numbers.length,
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          final item = numbers.removeAt(oldIndex);
+          numbers.insert(newIndex, item);
+        });
+      },
     );
   }
 
