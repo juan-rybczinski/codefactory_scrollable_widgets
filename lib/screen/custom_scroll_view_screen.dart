@@ -45,11 +45,29 @@ class CustomScrollViewScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           renderSliverAppbar(),
+          renderBox(),
           renderHeader(),
           renderBuilderSliverGrid(),
           renderHeader(),
           renderBuilderSliverList(),
         ],
+      ),
+    );
+  }
+
+  SliverToBoxAdapter renderBox() {
+    return SliverToBoxAdapter(
+      child: Container(
+        color: Colors.blue,
+        height: 300,
+        child: Center(
+          child: Text(
+            'Normal Widget',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }
