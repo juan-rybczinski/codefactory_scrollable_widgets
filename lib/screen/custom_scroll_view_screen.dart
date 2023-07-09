@@ -3,6 +3,39 @@ import 'package:scrollable_widgets/const/colors.dart';
 import 'package:scrollable_widgets/const/numbers.dart';
 import 'package:scrollable_widgets/generated/assets.dart';
 
+class _SliverFixedHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  final double maxHeight;
+  final double minHeight;
+
+  const _SliverFixedHeaderDelegate({
+    required this.child,
+    required this.maxHeight,
+    required this.minHeight,
+  });
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(
+      child: child,
+    );
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(_SliverFixedHeaderDelegate oldDelegate) {
+    return oldDelegate.child != child ||
+        oldDelegate.maxExtent != maxExtent ||
+        oldDelegate.minExtent != minExtent;
+  }
+}
+
 class CustomScrollViewScreen extends StatelessWidget {
   const CustomScrollViewScreen({super.key});
 
@@ -12,9 +45,32 @@ class CustomScrollViewScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           renderSliverAppbar(),
+          renderHeader(),
           renderBuilderSliverGrid(),
+          renderHeader(),
           renderBuilderSliverList(),
         ],
+      ),
+    );
+  }
+
+  SliverPersistentHeader renderHeader() {
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: _SliverFixedHeaderDelegate(
+        child: Container(
+          color: Colors.black,
+          child: Center(
+            child: Text(
+              'Header',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        minHeight: 50,
+        maxHeight: 200,
       ),
     );
   }
