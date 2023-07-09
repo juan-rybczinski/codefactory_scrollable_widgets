@@ -10,7 +10,17 @@ class ListViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
       title: 'ListViewScreen',
-      body: renderDefault(),
+      body: renderBuilder(),
+    );
+  }
+
+  ListView renderBuilder() {
+    return ListView.builder(
+      itemCount: numbers.length,
+      itemBuilder: (context, number) => renderContainer(
+        color: rainbowColors[number % rainbowColors.length],
+        index: number,
+      ),
     );
   }
 
