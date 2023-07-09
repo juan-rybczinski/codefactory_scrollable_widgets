@@ -10,7 +10,21 @@ class GridViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
       title: 'GridViewScreen',
-      body: renderCount(),
+      body: renderBuilderCrossAxisCount(),
+    );
+  }
+
+  GridView renderBuilderCrossAxisCount() {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 12.0,
+        mainAxisSpacing: 12.0,
+      ),
+      itemBuilder: (context, number) => renderContainer(
+        color: rainbowColors[number % rainbowColors.length],
+        index: number,
+      ),
     );
   }
 
