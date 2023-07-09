@@ -10,7 +10,27 @@ class ListViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
       title: 'ListViewScreen',
-      body: renderBuilder(),
+      body: renderSeparated(),
+    );
+  }
+
+  ListView renderSeparated() {
+    return ListView.separated(
+      itemCount: numbers.length,
+      itemBuilder: (context, number) => renderContainer(
+        color: rainbowColors[number % rainbowColors.length],
+        index: number,
+      ),
+      separatorBuilder: (context, number) {
+        number += 1;
+
+        if (number % 5 == 0) {
+          return renderContainer(
+              color: Colors.black, index: number, height: 200);
+        } else {
+          return const SizedBox(height: 100);
+        }
+      },
     );
   }
 
@@ -39,10 +59,11 @@ class ListViewScreen extends StatelessWidget {
   Widget renderContainer({
     required Color color,
     required int index,
+    double? height,
   }) {
     debugPrint(index.toString());
     return Container(
-      height: 300,
+      height: height ?? 300,
       color: color,
       child: Center(
         child: Text(
