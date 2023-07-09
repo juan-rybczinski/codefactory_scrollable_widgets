@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_widgets/const/colors.dart';
+import 'package:scrollable_widgets/const/numbers.dart';
 import 'package:scrollable_widgets/layout/main_layout.dart';
 
 class SingleChildScrollViewScreen extends StatelessWidget {
-  final List<int> numbers = List.generate(100, (index) => index);
-
-  SingleChildScrollViewScreen({Key? key}) : super(key: key);
+  const SingleChildScrollViewScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
