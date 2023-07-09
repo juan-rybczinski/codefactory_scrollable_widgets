@@ -13,8 +13,23 @@ class CustomScrollViewScreen extends StatelessWidget {
           SliverAppBar(
             title: Text('CustomScrollViewScreen'),
           ),
-          renderChildSliverGrid(),
+          renderBuilderSliverGrid(),
         ],
+      ),
+    );
+  }
+
+  SliverGrid renderBuilderSliverGrid() {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => renderContainer(
+          color: rainbowColors[numbers[index] % rainbowColors.length],
+          index: numbers[index],
+        ),
+        childCount: numbers.length,
+      ),
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 150,
       ),
     );
   }
